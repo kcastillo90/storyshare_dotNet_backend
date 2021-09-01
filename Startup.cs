@@ -16,18 +16,20 @@ namespace storyshare_dotNet_backend
 {
     public class Startup
     {
+        // Constructor: Grabs the configuartion object that allows us to grab vars from appsettings.json
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
+        // Property to receive configuration object
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            // The collects all our controllers for routing
             services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "storyshare_dotNet_backend", Version = "v1" });
@@ -44,15 +46,22 @@ namespace storyshare_dotNet_backend
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "storyshare_dotNet_backend v1"));
             }
 
-            app.UseHttpsRedirection();
+            // Forces site to use https, will need to comment in before pushing to heroku
+            // app.UseHttpsRedirection();
 
-            app.UseRouting();
+            app.UseRouting(); // enables writing
 
-            app.UseAuthorization();
+            app.UseAuthorization(); // enables auth
 
+            // function to define all routing
             app.UseEndpoints(endpoints =>
             {
+                // Enables attribute routing
                 endpoints.MapControllers();
+                // Enables Pattern Matching
+                endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{URLParam}");
             });
         }
     }
