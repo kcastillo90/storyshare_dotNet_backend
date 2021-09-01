@@ -67,19 +67,5 @@ namespace storyshare_dotNet_backend.Controllers
       // return updated list of stories
       return stories.Stories.ToList();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   }
 }
