@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using storyshare_dotNet_backend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace storyshare_dotNet_backend
 {
@@ -30,6 +32,11 @@ namespace storyshare_dotNet_backend
             // The collects all our controllers for routing
             services.AddControllers();
 
+            // save connection string in appsettings.json in a var
+            var connectionString = Configuration["DbContextSettings:ConnectionString"];
+            // register the db context as a service
+            services.AddDbContext<StoryContext>(opt => opt.UseNpgsql(connectionString));
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "storyshare_dotNet_backend", Version = "v1" });
