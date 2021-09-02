@@ -1,0 +1,29 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# - task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: 'https://github.com/kcastillo90/storyshare_dotNet_backend'
+
+trigger:
+- kyle
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Azure subscription 1(b709289b-d768-4dda-95c1-fd0e9e6cfd12)'
+    appType: 'apiApp'
+    WebAppName: 'storyShareBackend'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
