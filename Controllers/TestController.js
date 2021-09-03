@@ -5,10 +5,9 @@ using System.Linq;                  // for IEnumerable interface
 
 namespace storyshare_dotNet_backend.Controllers
 {
-  [Route("stories")]  // The Controller handles routes for /stories
   public class FirstController : Controller
   {
-    // route matches /first/first
+    // route matches /stories/first
     public Hashtable First(){
       return new Hashtable(){"Result", "You made a Route"};
     }
